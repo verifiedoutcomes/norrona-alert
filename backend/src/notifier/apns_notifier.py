@@ -37,7 +37,7 @@ def build_apns_notification(
             "product_name": product.name,
             "price": product.price,
         },
-        topic=bundle_id,
+        apns_topic=bundle_id,
     )
 
 

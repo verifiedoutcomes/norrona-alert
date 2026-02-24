@@ -563,7 +563,7 @@ class TestPlaywrightFallback:
     @pytest.mark.asyncio
     async def test_playwright_fallback_failure_raises(self, uk_scraper: UKScraper) -> None:
         with patch(
-            "backend.src.scraper.scraper.async_playwright",
+            "playwright.async_api.async_playwright",
             side_effect=RuntimeError("Playwright not installed"),
         ):
             with pytest.raises(RuntimeError, match="Playwright fallback failed"):

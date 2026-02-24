@@ -5,8 +5,8 @@ import uuid
 from datetime import datetime
 
 from pydantic import BaseModel, EmailStr, Field, HttpUrl
-from sqlalchemy import Column, DateTime, Enum, ForeignKey, Index, String, Text, func
-from sqlalchemy.dialects.postgresql import JSONB, UUID
+from sqlalchemy import JSON, Column, DateTime, Enum, ForeignKey, Index, String, Text, func
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, relationship
 
 
@@ -102,7 +102,7 @@ class User(Base):
         UUID(as_uuid=True), primary_key=True, default=uuid.uuid4
     )
     email: Mapped[str] = mapped_column(String(320), unique=True, nullable=False)
-    preferences: Mapped[dict] = mapped_column(JSONB, nullable=False, default=dict)
+    preferences: Mapped[dict] = mapped_column(JSON, nullable=False, default=dict)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), server_default=func.now()
     )
@@ -126,7 +126,7 @@ class ProductSnapshotRow(Base):
     price: Mapped[float] = mapped_column(nullable=False)
     original_price: Mapped[float] = mapped_column(nullable=False)
     discount_pct: Mapped[float] = mapped_column(nullable=False)
-    available_sizes: Mapped[list] = mapped_column(JSONB, nullable=False, default=list)
+    available_sizes: Mapped[list] = mapped_column(JSON, nullable=False, default=list)
     category: Mapped[str] = mapped_column(String(200), nullable=False)
     image_url: Mapped[str] = mapped_column(Text, nullable=False)
     locale: Mapped[str] = mapped_column(String(10), nullable=False)

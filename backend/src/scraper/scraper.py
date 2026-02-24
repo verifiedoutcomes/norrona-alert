@@ -333,17 +333,17 @@ class BaseScraper(abc.ABC):
         """Infer product category from name when no explicit category element exists."""
         lower = name.lower()
         category_keywords: dict[str, list[str]] = {
+            "Accessories": ["hat", "cap", "glove", "beanie", "headband", "belt", "gaiter"],
+            "Fleece": ["fleece", "midlayer"],
+            "Base Layer": ["base layer", "merino", "superlight"],
+            "Vests": ["vest", "gilet"],
             "Jackets": ["jacket", "anorak", "parka", "coat", "shell"],
             "Pants": ["pant", "trouser", "bibs"],
-            "Fleece": ["fleece", "midlayer"],
-            "Base Layer": ["base layer", "wool", "merino", "superlight"],
             "Shirts": ["shirt", "tee", "t-shirt"],
             "Shorts": ["short"],
-            "Accessories": ["hat", "cap", "glove", "beanie", "headband", "belt", "gaiter"],
             "Bags": ["bag", "pack", "backpack", "duffel"],
             "Footwear": ["boot", "shoe"],
             "Skirts & Dresses": ["skirt", "dress"],
-            "Vests": ["vest", "gilet"],
         }
         for category, keywords in category_keywords.items():
             if any(kw in lower for kw in keywords):

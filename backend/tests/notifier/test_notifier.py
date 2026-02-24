@@ -91,38 +91,40 @@ def _make_user(
     region: Locale = Locale.EN_GB,
     devices: list[DeviceRegistration] | None = None,
 ) -> User:
-    user = User.__new__(User)
-    user.id = uuid.uuid4()
-    user.email = "test@example.com"
-    user.preferences = {"region": region.value}
-    user.created_at = datetime(2025, 1, 1, tzinfo=timezone.utc)
-    user.devices = devices if devices is not None else []
+    user = User(
+        id=uuid.uuid4(),
+        email="test@example.com",
+        preferences={"region": region.value},
+        created_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+    )
+    if devices is not None:
+        user.devices = devices
     return user
 
 
 def _make_web_device(user_id: uuid.UUID) -> DeviceRegistration:
-    device = DeviceRegistration.__new__(DeviceRegistration)
-    device.id = uuid.uuid4()
-    device.user_id = user_id
-    device.device_token = json.dumps(
-        {
-            "endpoint": "https://push.example.com/sub/abc123",
-            "keys": {"p256dh": "test-p256dh", "auth": "test-auth"},
-        }
+    return DeviceRegistration(
+        id=uuid.uuid4(),
+        user_id=user_id,
+        device_token=json.dumps(
+            {
+                "endpoint": "https://push.example.com/sub/abc123",
+                "keys": {"p256dh": "test-p256dh", "auth": "test-auth"},
+            }
+        ),
+        platform=Platform.WEB,
+        created_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
     )
-    device.platform = Platform.WEB
-    device.created_at = datetime(2025, 1, 1, tzinfo=timezone.utc)
-    return device
 
 
 def _make_ios_device(user_id: uuid.UUID) -> DeviceRegistration:
-    device = DeviceRegistration.__new__(DeviceRegistration)
-    device.id = uuid.uuid4()
-    device.user_id = user_id
-    device.device_token = "abc123def456"
-    device.platform = Platform.IOS
-    device.created_at = datetime(2025, 1, 1, tzinfo=timezone.utc)
-    return device
+    return DeviceRegistration(
+        id=uuid.uuid4(),
+        user_id=user_id,
+        device_token="abc123def456",
+        platform=Platform.IOS,
+        created_at=datetime(2025, 1, 1, tzinfo=timezone.utc),
+    )
 
 
 # ── Email template rendering ─────────────────────────────────────────────────
@@ -389,7 +391,7 @@ class TestApnsPayload:
         )
 
         assert notification.device_token == "abc123def456"
-        assert notification.topic == "com.norronaalert.app"
+        assert notification.apns_topic == "com.norronaalert.app"
 
         aps = notification.message["aps"]
         assert aps["alert"]["title"] == "Norr\u00f8na Alert"
