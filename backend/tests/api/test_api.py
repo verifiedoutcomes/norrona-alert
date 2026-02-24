@@ -3,7 +3,7 @@ from __future__ import annotations
 import uuid
 from collections.abc import AsyncGenerator
 from datetime import datetime, timedelta, timezone
-from unittest.mock import MagicMock, patch
+from unittest.mock import AsyncMock, MagicMock, patch
 
 import httpx
 import pytest
@@ -359,8 +359,8 @@ class TestHealth:
             patch("backend.src.api.routes.aioredis") as mock_redis,
         ):
             mock_client = MagicMock()
-            mock_client.ping = MagicMock(return_value=True)
-            mock_client.aclose = MagicMock()
+            mock_client.ping = AsyncMock(return_value=True)
+            mock_client.aclose = AsyncMock()
             mock_redis.from_url = MagicMock(return_value=mock_client)
             response = await client.get("/health")
         assert response.status_code == 200

@@ -54,10 +54,6 @@ def upgrade() -> None:
     op.create_index("ix_product_snapshots_locale", "product_snapshots", ["locale"])
     op.create_index("ix_product_snapshots_url", "product_snapshots", ["url"])
 
-    # Platform enum
-    platform_enum = sa.Enum("web", "ios", name="platform_enum")
-    platform_enum.create(op.get_bind())  # type: ignore[arg-type]
-
     # Device registrations
     op.create_table(
         "device_registrations",
@@ -69,7 +65,11 @@ def upgrade() -> None:
             nullable=False,
         ),
         sa.Column("device_token", sa.String(500), nullable=False),
-        sa.Column("platform", platform_enum, nullable=False),
+        sa.Column(
+            "platform",
+            sa.Enum("web", "ios", name="platform_enum"),
+            nullable=False,
+        ),
         sa.Column(
             "created_at",
             sa.DateTime(timezone=True),
