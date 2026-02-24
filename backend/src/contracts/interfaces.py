@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from typing import Protocol
 
-from backend.src.contracts.models import Alert, ProductChange, ProductSnapshot, UserPreferences, User
+from backend.src.contracts.models import AlertSchema, ProductChange, ProductSnapshot, UserPreferences, User
 
 
 class IScraper(Protocol):
@@ -18,8 +18,8 @@ class IProductDiffer(Protocol):
 class IMatcher(Protocol):
     def match(
         self, changes: list[ProductChange], preferences: UserPreferences
-    ) -> list[Alert]: ...
+    ) -> list[AlertSchema]: ...
 
 
 class INotifier(Protocol):
-    async def send(self, alert: Alert, user: User) -> bool: ...
+    async def send(self, alert: AlertSchema, user: User) -> bool: ...
