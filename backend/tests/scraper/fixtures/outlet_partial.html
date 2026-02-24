@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+    <meta charset="UTF-8">
+    <title>Outlet – Norrøna</title>
+</head>
+<body>
+<div class="outlet-page">
+    <h1>Outlet</h1>
+    <div class="product-grid">
+        <!-- Complete product -->
+        <li class="product-card" data-product-id="3001">
+            <a class="product-card__image-link" href="/en-GB/products/lofoten-gore-tex-pro-jacket-men-1111">
+                <img class="product-card__image" src="https://images.norrona.com/lofoten-jacket.jpg" alt="lofoten Gore-Tex Pro Jacket Men">
+            </a>
+            <a class="product-card__link" href="/en-GB/products/lofoten-gore-tex-pro-jacket-men-1111">
+                <h3 class="product-card__title">lofoten Gore-Tex Pro Jacket Men</h3>
+            </a>
+            <span class="product-card__category">Jackets</span>
+            <span class="product-card__price--original">£600.00</span>
+            <span class="product-card__price--sale">£420.00</span>
+            <ul class="product-card__sizes">
+                <li>L</li>
+                <li>XL</li>
+            </ul>
+        </li>
+
+        <!-- Product with no name (should be skipped) -->
+        <li class="product-card" data-product-id="3002">
+            <a class="product-card__image-link" href="/en-GB/products/unknown-product-2222">
+                <img class="product-card__image" src="https://images.norrona.com/unknown.jpg" alt="">
+            </a>
+            <a class="product-card__link" href="/en-GB/products/unknown-product-2222">
+                <h3 class="product-card__title"></h3>
+            </a>
+            <span class="product-card__price--original">£100.00</span>
+            <span class="product-card__price--sale">£70.00</span>
+        </li>
+
+        <!-- Product with no link (should be skipped) -->
+        <li class="product-card" data-product-id="3003">
+            <img class="product-card__image" src="https://images.norrona.com/broken.jpg" alt="Broken Product">
+            <h3 class="product-card__title">Broken Product No Link</h3>
+            <span class="product-card__price--original">£50.00</span>
+            <span class="product-card__price--sale">£25.00</span>
+        </li>
+
+        <!-- Product with no category (category should be inferred) -->
+        <li class="product-card" data-product-id="3004">
+            <a class="product-card__image-link" href="/en-GB/products/bitihorn-lightweight-shorts-men-3333">
+                <img class="product-card__image" src="https://images.norrona.com/bitihorn-shorts.jpg" alt="bitihorn lightweight Shorts Men">
+            </a>
+            <a class="product-card__link" href="/en-GB/products/bitihorn-lightweight-shorts-men-3333">
+                <h3 class="product-card__title">bitihorn lightweight Shorts Men</h3>
+            </a>
+            <span class="product-card__price--original">£120.00</span>
+            <span class="product-card__price--sale">£72.00</span>
+            <ul class="product-card__sizes">
+                <li>S</li>
+                <li>M</li>
+            </ul>
+        </li>
+
+        <!-- Product with no sizes -->
+        <li class="product-card" data-product-id="3005">
+            <a class="product-card__image-link" href="/en-GB/products/norrona-29-cotton-t-shirt-men-4444">
+                <img class="product-card__image" src="https://images.norrona.com/29-tshirt.jpg" alt="/29 cotton T-Shirt Men">
+            </a>
+            <a class="product-card__link" href="/en-GB/products/norrona-29-cotton-t-shirt-men-4444">
+                <h3 class="product-card__title">/29 cotton T-Shirt Men</h3>
+            </a>
+            <span class="product-card__category">Shirts</span>
+            <span class="product-card__price--original">£45.00</span>
+            <span class="product-card__price--sale">£31.50</span>
+        </li>
+    </div>
+</div>
+</body>
+</html>
