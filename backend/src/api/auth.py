@@ -108,6 +108,13 @@ async def get_current_user(
     session: AsyncSession = Depends(get_db),
     access_token: str | None = Cookie(default=None),
 ) -> User:
+    if settings.dangerously_skip_permissions:
+        user_repo = UserRepository(session)
+        user = await user_repo.get_by_email("anonymous@skip-permissions.local")
+        if user is None:
+            user = await user_repo.create("anonymous@skip-permissions.local")
+        return user
+
     if access_token is None:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

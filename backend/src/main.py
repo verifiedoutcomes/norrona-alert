@@ -39,6 +39,12 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     # Startup
     logger.info("starting_up", cors_origins=settings.cors_origin_list)
 
+    if settings.dangerously_skip_permissions:
+        logger.warning(
+            "dangerously_skip_permissions_enabled",
+            message="ALL authentication checks are DISABLED. Do NOT use in production.",
+        )
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     logger.info("database_tables_ready")

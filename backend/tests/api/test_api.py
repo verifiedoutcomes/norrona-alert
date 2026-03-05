@@ -349,6 +349,39 @@ class TestDeviceRegistration:
         assert response.status_code == 401
 
 
+# ── Tests: Dangerously Skip Permissions ──────────────────────────────────────
+
+
+class TestDangerouslySkipPermissions:
+    @pytest.mark.asyncio
+    async def test_skip_permissions_bypasses_auth(self, client: httpx.AsyncClient) -> None:
+        with patch("backend.src.api.auth.settings") as mock_settings:
+            mock_settings.dangerously_skip_permissions = True
+            response = await client.get("/api/preferences")
+        assert response.status_code == 200
+
+    @pytest.mark.asyncio
+    async def test_skip_permissions_creates_anonymous_user(
+        self, client: httpx.AsyncClient
+    ) -> None:
+        with patch("backend.src.api.auth.settings") as mock_settings:
+            mock_settings.dangerously_skip_permissions = True
+            response = await client.get("/api/preferences")
+        assert response.status_code == 200
+        # Make a second request to verify idempotency (same user reused)
+        with patch("backend.src.api.auth.settings") as mock_settings:
+            mock_settings.dangerously_skip_permissions = True
+            response2 = await client.get("/api/preferences")
+        assert response2.status_code == 200
+
+    @pytest.mark.asyncio
+    async def test_skip_permissions_disabled_still_requires_auth(
+        self, client: httpx.AsyncClient
+    ) -> None:
+        response = await client.get("/api/preferences")
+        assert response.status_code == 401
+
+
 # ── Tests: Health ────────────────────────────────────────────────────────────
 
 

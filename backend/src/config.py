@@ -42,6 +42,9 @@ class Settings(BaseSettings):
     scrape_interval_minutes: int = Field(default=60, ge=60)
     scrape_min_delay_seconds: int = Field(default=30, ge=10)
 
+    # Permissions
+    dangerously_skip_permissions: bool = False
+
     # Frontend
     frontend_url: str = "http://localhost:3000"
 
